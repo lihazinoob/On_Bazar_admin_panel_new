@@ -24,6 +24,7 @@ interface ProductData {
   isFeatured: boolean;
   isNew: boolean;
   isSoldOut: boolean;
+  colors: string[];
 }
 
 export function CreateProductPage() {
@@ -45,6 +46,7 @@ export function CreateProductPage() {
     isFeatured: false,
     isNew: false,
     isSoldOut: false,
+    colors:[]
   });
 
   // state for images
@@ -72,6 +74,7 @@ export function CreateProductPage() {
       isFeatured: false,
       isNew: false,
       isSoldOut: false,
+      colors: []
     });
     setImages([]);
   };
@@ -100,6 +103,7 @@ export function CreateProductPage() {
       formData.append(`image_${index}`, image);
     });
     setIsSubmitting(true);
+    console.log("Submitting product data:", productData);
 
     try {
       // Make the API call

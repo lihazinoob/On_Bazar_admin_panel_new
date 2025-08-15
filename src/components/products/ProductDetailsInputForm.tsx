@@ -12,6 +12,7 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { fetchCategories } from "@/api/Category";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 // Define types
 interface ProductSize {
@@ -31,6 +32,7 @@ interface ProductData {
   isFeatured: boolean;
   isNew: boolean;
   isSoldOut: boolean;
+  colors: string[];
 }
 
 interface ProductDetailsInputFormProps {
@@ -53,6 +55,28 @@ const ProductDetailsInputForm: React.FC<ProductDetailsInputFormProps> = ({
 }) => {
   // state for categories
   const [categories, setCategories] = React.useState<Category[]>([]);
+
+  // local state for color input
+  const [newColor, setNewColor] = React.useState<string>("");
+  // add color to the productData.color
+  const handleAddColor = () => {
+    const color = newColor.trim();
+    if (color && !productData.colors.includes(color)) {
+      setProductData((prev) => ({
+        ...prev,
+        colors: [...prev.colors, color],
+      }));
+      setNewColor(""); // Reset input after adding
+    }
+  };
+
+  // remove color from the productData.colors
+  const handleRemoveColor = (color: string) => {
+    setProductData((prev) => ({
+      ...prev,
+      colors: prev.colors.filter((c) => c !== color),
+    }));
+  };
 
   // function to load categories from API
   const loadCategories = async () => {
@@ -303,6 +327,54 @@ const ProductDetailsInputForm: React.FC<ProductDetailsInputFormProps> = ({
           <span className="font-semibold text-xl ml-2">
             {productData.totalProducts}
           </span>
+        </div>
+
+        <div className="space-y-2 mt-4">
+          <Label>
+            Product Colors{" "}
+            <span className="text-muted-foreground">(optional)</span>
+          </Label>
+          <div className="flex items-center gap-2">
+            <Input
+              type="text"
+              placeholder="Enter a color(e.g., Red)"
+              className="w-1/3"
+              value={newColor}
+              onChange={(e) => setNewColor(e.target.value)}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleAddColor}
+            >
+              Add color
+            </Button>
+          </div>
+          <div className="mt-2">
+            {productData.colors.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {productData.colors.map((color) => (
+                  <span
+                    key={color}
+                    className="inline-flex items-center px-3 py-1 bg-gray-200 rounded-xl text-sm font-medium text-gray-900"
+                  >
+                    {color}
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="ml-2 p-1"
+                      onClick={() => handleRemoveColor(color)}
+                    >
+                      &times;
+                    </Button>
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground">No colors added yet.</p>
+            )}
+          </div>
+          
         </div>
       </div>
     </div>

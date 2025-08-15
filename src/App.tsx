@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import { CreateProductPage } from "./pages/CreateProductPage";
 import { DynamicBreadcrumb } from "./components/DynamicBreadCrumb";
 import { Toaster } from "sonner";
+import AllProductPage from "./pages/AllProductPage";
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
               {/* Product Route */}
               {/* <Route path="/products" element={<ProductsPage />} /> */}
               <Route path="/products/create" element={<CreateProductPage />} />
+              <Route path = "/products/all" element= {<AllProductPage/>}/>
               {/* <Route path="/products/:id" element={<ProductDetailsPage />} /> */}
             </Routes>
           </div>

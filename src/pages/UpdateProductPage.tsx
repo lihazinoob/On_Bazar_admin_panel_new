@@ -101,17 +101,49 @@ const UpdateProductPage = () => {
   }, [id, productFromState, navigation]);
 
   // handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    if (
+      !productData.name ||
+      !productData.description ||
+      !productData.categoryId
+    ) {
+      toast.error(
+        "Please fill in all required fields (Name, Description, Category)"
+      );
+      return;
+    }
+
     setIsSubmitting(true);
 
     // Here you would typically send the productData and images to your API
     try {
       // Simulate API call
-      console.log("Submitting product data:", productData);
-      console.log("Submitting images:", images);
-      console.log("New Images (Files):", images);
-      console.log("Existing Images (URLs):", existingImages);
+      
+
+      const formData = new FormData();
+      
+      formData.append("productData", JSON.stringify(productData));
+      images.forEach((image, index) => {
+        formData.append(`image_${index}`, image);
+      });
+
+      formData.append("existingImages", JSON.stringify(existingImages));
+
+      // Actual API call would go here
+      const response = await fetch(`https://raw-node-js.onrender.com/api/updateProduct/${id}`,{
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update product");
+      }
+
+
+      console.log("=== FORMDATA CONTENTS ===");
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
       toast.success("Product updated successfully!");
       navigation("/products/all");
     } catch (error) {

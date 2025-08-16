@@ -11,6 +11,7 @@ import { CreateProductPage } from "./pages/CreateProductPage";
 import { DynamicBreadcrumb } from "./components/DynamicBreadCrumb";
 import { Toaster } from "sonner";
 import AllProductPage from "./pages/AllProductPage";
+import UpdateProductPage from "./pages/UpdateProductPage";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
               {/* <Route path="/products" element={<ProductsPage />} /> */}
               <Route path="/products/create" element={<CreateProductPage />} />
               <Route path = "/products/all" element= {<AllProductPage/>}/>
+              <Route path="/products/update/:id" element={<UpdateProductPage />} />
               {/* <Route path="/products/:id" element={<ProductDetailsPage />} /> */}
             </Routes>
           </div>

@@ -62,7 +62,9 @@ const AllProductPage = () => {
   };
 
   const handleEditProduct = (product: Product) => {
-    console.log('Edit product:', product);
+    navigate(`/products/update/${product.id}`,{
+      state:{ product }
+    });
     // Implement edit logic
   };
 

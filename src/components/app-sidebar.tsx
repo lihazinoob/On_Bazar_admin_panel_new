@@ -53,10 +53,7 @@ const data = {
           title: "Create Product",
           url: "/products/create",
         },
-        {
-          title: "Categories",
-          url: "/products/categories",
-        },
+        
       ],
     },
     {

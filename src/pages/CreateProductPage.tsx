@@ -146,7 +146,9 @@ export function CreateProductPage() {
       <div className="grid grid-cols-3 gap-6">
         {/* Product Image Upload and Image show column */}
         <div className="col-span-1">
-          <ProductImageUploadSection images={images} setImages={setImages} />
+          <ProductImageUploadSection 
+          images={images} 
+          setImages={setImages} />
         </div>
         <div className="col-span-2">
           <ProductDetailsInputForm
